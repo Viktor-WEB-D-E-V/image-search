@@ -30,5 +30,4 @@ function renderGalleryCard(images) {
   gallery.innerHTML = markup;
 }
 
-export default {
-  renderGalleryCard};
+export default {renderGalleryCard};

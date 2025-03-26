@@ -7,7 +7,11 @@ function getPixabayImages(value) {
     .get(
       `${BASIC_URL}?key=${API_KEY}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true`
     )
-    .then(response => response.data);
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error fetching images:', error);
+      throw error;
+    });
 }
 
 export default {
