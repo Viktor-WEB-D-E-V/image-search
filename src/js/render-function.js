@@ -34,7 +34,8 @@ function renderGalleryCard(element, images) {
     )
     .join('');
 
-  element.innerHTML = markup;
+  console.log(markup);
+  element.insertAdjacentHTML('beforeend', markup);
 
   const lightbox = new SimpleLightbox('.gallery-item a', {
     captionDelay: 250,
@@ -55,4 +56,19 @@ function hiddeLoader(element) {
   element.classList.add('hidden');
 }
 
-export default { renderGalleryCard, clearGallery, showLoader, hiddeLoader };
+export function showLoadMore(element) {
+  element.style.display = 'block';
+}
+
+export function hideLoadMore(element) {
+  element.style.display = 'none';
+}
+
+export default {
+  renderGalleryCard,
+  clearGallery,
+  showLoader,
+  hiddeLoader,
+  showLoadMore,
+  hideLoadMore,
+};

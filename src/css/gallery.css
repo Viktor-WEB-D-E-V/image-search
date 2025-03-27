@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
+  margin-bottom: 25px;
 }
 
 .gallery-item {
@@ -11,7 +12,6 @@
 
 .gallery-item:hover {
   transform: scale(1.05);
-  box-shadow: 1px 1px 1px 1px ;
   transition: transform 1s;
 }
 
