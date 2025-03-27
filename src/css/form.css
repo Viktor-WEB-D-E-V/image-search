@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  margin-top: 25px;
+  margin: 25px 0;
 }
 
 input {
@@ -14,7 +14,7 @@ input {
   font-size: 16px;
   letter-spacing: 0.04em;
   outline: none;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
@@ -27,18 +27,18 @@ input:hover {
   color: rgba(0, 0, 0, 0.75);
 }
 
-button {
-    width: 91px;
+.form-btn {
+  width: 91px;
   letter-spacing: 0.04em;
   padding: 8px 16px;
   background-color: #4e75ff;
   border-radius: 8px;
-  color:white;
-  border: none; 
+  color: white;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease; 
+  transition: background-color 0.2s ease;
 }
-button:hover,
-button:focus {
+.form-btn:hover,
+.form-btn:focus {
   background-color: #6c8cff;
 }
