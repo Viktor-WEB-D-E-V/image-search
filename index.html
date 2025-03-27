@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image search</title>
+    <script type="module" crossorigin src="/image-search/index.js"></script>
+    <link rel="modulepreload" crossorigin href="/image-search/assets/vendor-lDhL-8I6.js">
+    <link rel="stylesheet" crossorigin href="/image-search/assets/vendor-Dr4k8ETB.css">
+    <link rel="stylesheet" crossorigin href="/image-search/assets/index-ClIQylaE.css">
+  </head>
+  <body>
+    <form class="form">
+      <label>
+        <input
+          type="text"
+          name="search_text"
+          placeholder="Search images..."
+          required
+        />
+      </label>
+      <button class="form-btn" type="submit">Search</button>
+    </form>
+    <ul class="gallery"></ul>
+    <span class="loader hidden"></span>
+    <button class="load-more" type="submit">Load more</button>
+  </body>
+</html>
