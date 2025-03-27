@@ -1,9 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-function renderGalleryCard(images) {
-  const gallery = document.querySelector('.gallery');
-
+function renderGalleryCard(element, images) {
   const markup = images
     .map(
       ({
@@ -36,7 +34,7 @@ function renderGalleryCard(images) {
     )
     .join('');
 
-  gallery.innerHTML = markup;
+  element.innerHTML = markup;
 
   const lightbox = new SimpleLightbox('.gallery-item a', {
     captionDelay: 250,
@@ -45,4 +43,16 @@ function renderGalleryCard(images) {
   lightbox.refresh();
 }
 
-export default { renderGalleryCard };
+function clearGallery(element) {
+  element.innerHTML = '';
+}
+
+function showLoader(element) {
+  element.classList.remove('hidden');
+}
+
+function hiddeLoader(element) {
+  element.classList.add('hidden');
+}
+
+export default { renderGalleryCard, clearGallery, showLoader, hiddeLoader };
