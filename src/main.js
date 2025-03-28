@@ -2,26 +2,24 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 import { getPixabayImages } from './js/pixabay-api';
-import render from './js/render-function';
+import {
+  renderGalleryCard,
+  clearGallery,
+  showLoader,
+  hideLoader,
+  showLoadMore,
+  hideLoadMore,
+} from './js/render-function';
 
-const refs = {
-  form: document.querySelector('.form'),
-  loader: document.querySelector('.loader'),
-  gallery: document.querySelector('.gallery'),
-  loadMoreBtn: document.querySelector('.load-more'),
-};
-
-const queryParams = {
-  query: '',
-  page: 0,
-  totalPage: 0,
-};
+import refs from './js/utils/refs';
+import queryParams from './js/utils/queryParams';
 
 refs.form.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 async function onSearch(e) {
   e.preventDefault();
+
   const form = e.currentTarget;
   queryParams.query = form.elements.search_text.value.trim();
 
@@ -36,9 +34,9 @@ async function onSearch(e) {
 
   queryParams.page = 1;
 
-  render.clearGallery(refs.gallery);
-  render.showLoader(refs.loader);
-  render.hideLoadMore(refs.loadMoreBtn);
+  clearGallery(refs.gallery);
+  showLoader(refs.loader);
+  hideLoadMore(refs.loadMoreBtn);
 
   try {
     const { images, totalHits } = await getPixabayImages(
@@ -55,10 +53,10 @@ async function onSearch(e) {
         position: 'topRight',
       });
     } else {
-      render.renderGalleryCard(refs.gallery, images);
+     renderGalleryCard(refs.gallery, images);
 
       if (queryParams.page < queryParams.totalPage) {
-        render.showLoadMore(refs.loadMoreBtn);
+        showLoadMore(refs.loadMoreBtn);
       }
     }
   } catch (error) {
@@ -68,18 +66,14 @@ async function onSearch(e) {
       position: 'topRight',
     });
   } finally {
-    render.hiddeLoader(refs.loader);
+    hideLoader(refs.loader);
   }
-  // getPixabayImages(searchQuery)
-  //   .then(data => {})
-  //   .catch(() => {})
-  //   .finally(() => {});
 }
 async function onLoadMore() {
   queryParams.page += 1;
 
-  render.showLoader(refs.loader);
-  render.showLoadMore(refs.loadMoreBtn);
+  showLoader(refs.loader);
+  showLoadMore(refs.loadMoreBtn);
 
   try {
     const { images } = await getPixabayImages(
@@ -87,7 +81,7 @@ async function onLoadMore() {
       queryParams.page
     );
 
-    render.renderGalleryCard(refs.gallery, images);
+    renderGalleryCard(refs.gallery, images);
 
     if (queryParams.page >= queryParams.totalPage) {
       iziToast.warning({
@@ -103,6 +97,6 @@ async function onLoadMore() {
       position: 'topRight',
     });
   } finally {
-    render.hiddeLoader(refs.loader);
+    hideLoader(refs.loader);
   }
 }

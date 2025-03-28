@@ -1,7 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-function renderGalleryCard(element, images) {
+export function renderGalleryCard(element, images) {
   const markup = images
     .map(
       ({
@@ -44,15 +44,15 @@ function renderGalleryCard(element, images) {
   lightbox.refresh();
 }
 
-function clearGallery(element) {
+export function clearGallery(element) {
   element.innerHTML = '';
 }
 
-function showLoader(element) {
+export function showLoader(element) {
   element.classList.remove('hidden');
 }
 
-function hiddeLoader(element) {
+export function hideLoader(element) {
   element.classList.add('hidden');
 }
 
@@ -63,12 +63,3 @@ export function showLoadMore(element) {
 export function hideLoadMore(element) {
   element.style.display = 'none';
 }
-
-export default {
-  renderGalleryCard,
-  clearGallery,
-  showLoader,
-  hiddeLoader,
-  showLoadMore,
-  hideLoadMore,
-};
