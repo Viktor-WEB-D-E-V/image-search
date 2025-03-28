@@ -37,7 +37,6 @@ export function renderGalleryCard(element, images) {
     )
     .join('');
 
-  console.log(markup);
   element.insertAdjacentHTML('beforeend', markup);
 
   const lightbox = new SimpleLightbox('.gallery-item a', {

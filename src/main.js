@@ -11,6 +11,7 @@ import {
 
 import refs from './js/utils/refs';
 import queryParams from './js/utils/queryParams';
+import scrollBy from './js/utils/scrollBy';
 
 refs.form.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
@@ -73,9 +74,10 @@ async function onLoadMore() {
     );
 
     renderGalleryCard(refs.gallery, images);
-
+    scrollBy();
     if (queryParams.page >= queryParams.totalPage) {
       showNotification('No more images to load.', 'warning');
+      hideLoadMore(refs.loadMoreBtn);
     }
   } catch (error) {
     showNotification(

@@ -16,7 +16,6 @@ export async function getPixabayImages(query, page = 1) {
         page: page,
       },
     });
-
     return {
       images: response.data.hits,
       totalHits: response.data.totalHits,
