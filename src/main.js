@@ -34,32 +34,42 @@ async function onSearch(e) {
   hideLoadMore(refs.loadMoreBtn);
 
   try {
-    const { images, totalHits } = await getPixabayImages(
-      queryParams.query,
-      queryParams.page
-    );
-    queryParams.totalPage = Math.ceil(totalHits / 15);
+    setTimeout(async () => {
+      try {
+        const { images, totalHits } = await getPixabayImages(
+          queryParams.query,
+          queryParams.page
+        );
+        queryParams.totalPage = Math.ceil(totalHits / 15);
 
-    if (images.length === 0) {
-      showNotification(
-        'Sorry, there are no images matching your search query. Please try again!',
-        'info'
-      );
-    } else {
-      renderGalleryCard(refs.gallery, images);
+        if (images.length === 0) {
+          showNotification(
+            'Sorry, there are no images matching your search query. Please try again!',
+            'info'
+          );
+        } else {
+          renderGalleryCard(refs.gallery, images);
 
-      if (queryParams.page < queryParams.totalPage) {
-        showLoadMore(refs.loadMoreBtn);
+          if (queryParams.page < queryParams.totalPage) {
+            showLoadMore(refs.loadMoreBtn);
+          }
+        }
+      } catch (error) {
+        showNotification(
+          'Failed to fetch images. Please try again later.',
+          'error'
+        );
+      } finally {
+        hideLoader(refs.loader);
       }
-    }
+    }, 1000);
   } catch (error) {
     showNotification(
       'Failed to fetch images. Please try again later.',
       'error'
     );
-  } finally {
-    hideLoader(refs.loader);
   }
+  form.reset();
 }
 async function onLoadMore() {
   queryParams.page += 1;
@@ -68,17 +78,28 @@ async function onLoadMore() {
   showLoadMore(refs.loadMoreBtn);
 
   try {
-    const { images } = await getPixabayImages(
-      queryParams.query,
-      queryParams.page
-    );
+    setTimeout(async () => {
+      try {
+        const { images } = await getPixabayImages(
+          queryParams.query,
+          queryParams.page
+        );
 
-    renderGalleryCard(refs.gallery, images);
-    scrollBy();
-    if (queryParams.page >= queryParams.totalPage) {
-      showNotification('No more images to load.', 'warning');
-      hideLoadMore(refs.loadMoreBtn);
-    }
+        renderGalleryCard(refs.gallery, images);
+        scrollBy();
+        if (queryParams.page >= queryParams.totalPage) {
+          showNotification('No more images to load.', 'warning');
+          hideLoadMore(refs.loadMoreBtn);
+        }
+      } catch (error) {
+        showNotification(
+          'Failed to fetch images. Please try again later.',
+          'error'
+        );
+      } finally {
+        hideLoader(refs.loader);
+      }
+    }, 500);
   } catch (error) {
     showNotification(
       'Failed to fetch images. Please try again later.',
