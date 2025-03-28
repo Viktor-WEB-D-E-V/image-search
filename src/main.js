@@ -1,6 +1,3 @@
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
-
 import { getPixabayImages } from './js/pixabay-api';
 import {
   renderGalleryCard,
@@ -9,6 +6,7 @@ import {
   hideLoader,
   showLoadMore,
   hideLoadMore,
+  showNotification,
 } from './js/render-function';
 
 import refs from './js/utils/refs';
@@ -24,11 +22,7 @@ async function onSearch(e) {
   queryParams.query = form.elements.search_text.value.trim();
 
   if (!queryParams.query) {
-    iziToast.warning({
-      title: 'Warning',
-      message: 'Please enter a value',
-      position: 'topRight',
-    });
+    showNotification('Please enter a value', 'warning');
     return;
   }
 
@@ -46,25 +40,22 @@ async function onSearch(e) {
     queryParams.totalPage = Math.ceil(totalHits / 15);
 
     if (images.length === 0) {
-      iziToast.info({
-        title: 'No Results',
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
-        position: 'topRight',
-      });
+      showNotification(
+        'Sorry, there are no images matching your search query. Please try again!',
+        'info'
+      );
     } else {
-     renderGalleryCard(refs.gallery, images);
+      renderGalleryCard(refs.gallery, images);
 
       if (queryParams.page < queryParams.totalPage) {
         showLoadMore(refs.loadMoreBtn);
       }
     }
   } catch (error) {
-    iziToast.error({
-      title: 'Error',
-      message: 'Failed to fetch images. Please try again later.',
-      position: 'topRight',
-    });
+    showNotification(
+      'Failed to fetch images. Please try again later.',
+      'error'
+    );
   } finally {
     hideLoader(refs.loader);
   }
@@ -84,18 +75,13 @@ async function onLoadMore() {
     renderGalleryCard(refs.gallery, images);
 
     if (queryParams.page >= queryParams.totalPage) {
-      iziToast.warning({
-        title: 'Warning',
-        message: 'No more images to load.',
-        position: 'topRight',
-      });
+      showNotification('No more images to load.', 'warning');
     }
   } catch (error) {
-    iziToast.error({
-      title: 'Error',
-      message: 'Failed to fetch images. Please try again later.',
-      position: 'topRight',
-    });
+    showNotification(
+      'Failed to fetch images. Please try again later.',
+      'error'
+    );
   } finally {
     hideLoader(refs.loader);
   }

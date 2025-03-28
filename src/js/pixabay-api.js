@@ -25,14 +25,4 @@ export async function getPixabayImages(query, page = 1) {
     console.error('Error fetching images:', error);
     throw new Error('Failed to fetch images. Please try again later.');
   }
-
-  // axios
-  //   .get(
-  //     `${BASIC_URL}?key=${API_KEY}&q=${value}&image_type=photo&orientation=horizontal&safesearch=true`
-  //   )
-  //   .then(response => response.data)
-  //   .catch(error => {
-  //     console.error('Error fetching images:', error);
-  //     throw error;
-  //   });
 }

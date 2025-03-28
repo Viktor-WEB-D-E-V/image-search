@@ -1,6 +1,9 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
 export function renderGalleryCard(element, images) {
   const markup = images
     .map(
@@ -62,4 +65,12 @@ export function showLoadMore(element) {
 
 export function hideLoadMore(element) {
   element.style.display = 'none';
+}
+
+export function showNotification(message, type) {
+  iziToast[type]({
+    title: type.toUpperCase(),
+    message,
+    position: 'bottomRight',
+  });
 }
